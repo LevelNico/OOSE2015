@@ -1,2 +1,2 @@
 # GameOfOOSE
-A game for the OOSE class.
+A game for the OOSE course at Aalborg University.
