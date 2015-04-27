@@ -19,8 +19,13 @@ public class ApplicationPanel extends JPanel implements Runnable, KeyListener{
 	private int FPS = 60;
 	private long targetTime = 1000/FPS;
 	
+	private ApplicationStateManager asm;
+	
 	public ApplicationPanel(){
 		setPreferredSize (new Dimension(WIDTH,HEIGHT));
+		
+		addKeyListener(this);
+		setFocusable(true);
 		
 		start();
 	}
@@ -33,6 +38,9 @@ public class ApplicationPanel extends JPanel implements Runnable, KeyListener{
 	
 	public void run(){
 		long start, elapsed, wait;
+		
+		asm = new ApplicationStateManager();
+		
 		while(isRunning){
 			start = System.nanoTime();
 			
@@ -54,28 +62,28 @@ public class ApplicationPanel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	public void tick(){
-		System.out.println("It runs!");
-		
+		asm.tick(); //call methods from AplicationStateManager
+					//ASM selects which state the game is in (menu, level1, etc) and methods are called from that state.
 	}
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		
-		g.drawRect(100, 100, 50, 50);
+		//g.clearRect(0, 0, WIDTH, HEIGHT);
+		asm.draw(g);
 	}
 	
 
-	public void keyPressed(KeyEvent arg0) {
-		
-		
-	}
-
-	public void keyReleased(KeyEvent arg0) {
-		
+	public void keyPressed(KeyEvent e) {
+		asm.keyPressed(e.getKeyCode());
 		
 	}
 
-	public void keyTyped(KeyEvent arg0) {
+	public void keyReleased(KeyEvent e) {
+		asm.keyReleased(e.getKeyCode());
+		
+	}
+
+	public void keyTyped(KeyEvent e) {
 		
 		
 	}
