@@ -1,0 +1,5 @@
+package med4.game_of_oose.gamestate;
+
+public class Level1State {
+
+}
