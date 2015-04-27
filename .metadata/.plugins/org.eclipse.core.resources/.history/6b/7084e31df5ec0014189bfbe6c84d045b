@@ -61,7 +61,7 @@ public class ApplicationPanel extends JPanel implements Runnable, KeyListener{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
-		g.drawRect(100, 100, 50, 50);
+		g.drawRect(100, 100, 10, 10);
 	}
 	
 

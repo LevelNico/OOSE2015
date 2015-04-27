@@ -1,7 +1,6 @@
 package med4.game_of_oose;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -31,7 +30,7 @@ public class ApplicationPanel extends JPanel implements Runnable, KeyListener{
 		thread.start();
 	}
 	
-	public void run(){
+	private void run(){
 		long start, elapsed, wait;
 		while(isRunning){
 			start = System.nanoTime();
@@ -54,14 +53,13 @@ public class ApplicationPanel extends JPanel implements Runnable, KeyListener{
 	}
 	
 	public void tick(){
-		System.out.println("It runs!");
+		System.out.println(It runs!);
 		
 	}
 	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		
-		g.drawRect(100, 100, 50, 50);
 	}
 	
 
