@@ -1,5 +1,6 @@
 package med4.game_of_oose.objects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -9,8 +10,11 @@ public class Block extends Rectangle {
 	public static final long serialVersionUID= 1L;
 	
 	public static final int blockSize = 64;
-	public Block(int x, int y){
+	private int id;
+	
+	public Block(int x, int y, int id){
 		setBounds(x,y,blockSize,blockSize);
+		this.id = id;
 	}
 	
 	public void tick() {
@@ -18,6 +22,19 @@ public class Block extends Rectangle {
 	}
 	
 	public void draw(Graphics g){
-		g.fillRect(x - (int)ApplicationState.xOffset, y - (int)ApplicationState.yOffset, width, height);
+		g.setColor(Color.BLACK);
+		if(id != 0) {
+			g.fillRect(x - (int)ApplicationState.xOffset, y - (int)ApplicationState.yOffset, width, height);
+		}
 	}
+	
+	//getters and setters
+	public void setID(int id){
+		this.id = id;
+	}
+	
+	public int getID(){
+		return id;
+	}
+	
 }
