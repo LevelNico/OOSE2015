@@ -1,0 +1,7 @@
+package med4.game_of_oose.physics;
+
+public class Collision {
+	public static boolean playerBlock(Point p, Block b) {
+		return b.contains(p); //if the point is within the block this boolean will be true.
+	}
+}
