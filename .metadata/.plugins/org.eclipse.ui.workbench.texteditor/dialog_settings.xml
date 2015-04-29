@@ -2,25 +2,31 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="305" key="DIALOG_WIDTH"/>
-		<item value="32" key="DIALOG_Y_ORIGIN"/>
+		<item value="-187" key="DIALOG_Y_ORIGIN"/>
+		<item value="1112" key="DIALOG_X_ORIGIN"/>
 		<item value="442" key="DIALOG_HEIGHT"/>
-		<item value="605" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="" key="selection"/>
+		<item value="0.2" key="selection"/>
 		<list key="findhistory">
+			<item value="0.2"/>
+			<item value="0."/>
+			<item value="[i]"/>
+			<item value="keyevent"/>
+			<item value="right"/>
 			<item value="// TODO Auto-generated method stub"/>
 			<item value="&#x09;&#x09;// TODO Auto-generated method stub"/>
 			<item value="@Override"/>
-			<item value="run"/>
 		</list>
 		<list key="replacehistory">
+			<item value="fallSpeed"/>
+			<item value="[i][j]"/>
 			<item value=""/>
 		</list>
 	</section>
