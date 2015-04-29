@@ -5,15 +5,19 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import med4.game_of_oose.objects.Block;
+import med4.game_of_oose.objects.MovingBlock;
 
 public class Map {
 	
 	private String path;
+	private String line;
 	private int width, height;
 	
 	private Block[][] blocks;
+	private ArrayList<MovingBlock> movingBlocks;
 	
 	public Map(String loadPath) {
 		path = loadPath;
@@ -28,6 +32,15 @@ public class Map {
 				blocks[i][j].draw(g);
 			}
 		}
+		for (int i = 0; i < movingBlocks.size(); i++){
+			movingBlocks.get(i).draw(g);
+		}
+	}
+	
+	public void tick(){
+		for (int i = 0; i < movingBlocks.size(); i++){
+			movingBlocks.get(i).tick();
+		}
 	}
 	
 	public void loadMap(){
@@ -41,13 +54,29 @@ public class Map {
 			blocks = new Block[height][width];
 			
 			for(int y = 0; y < height; y++){
-				String line = br.readLine();
+				line = br.readLine();
 				
 				String[] tokens = line.split("\\s+");
 				
 				for(int x = 0; x < width; x++){
 					blocks[y][x]= new Block(x * Block.blockSize, y * Block.blockSize, Integer.parseInt(tokens[x]));
 				}
+			}
+			
+			line = br.readLine();//read blank line
+			line = br.readLine();//read length
+			int length = Integer.parseInt(line);
+			movingBlocks = new ArrayList<MovingBlock>();
+			
+			for(int i = 0; i < length; i++){
+				line = br.readLine(); //read movingblock stats
+				String[] tokens = line.split("\\s+"); //splits the line into tokens
+				
+				movingBlocks.add(new MovingBlock(Integer.parseInt(tokens[0]) * Block.blockSize, //x
+						Integer.parseInt(tokens[1]) * Block.blockSize, //y
+						Integer.parseInt(tokens[2]), //id
+						Integer.parseInt(tokens[3]) * Block.blockSize, //leftBound
+						Integer.parseInt(tokens[4]) * Block.blockSize)); //rightBound
 			}
 			
 			
@@ -58,6 +87,10 @@ public class Map {
 	
 	public Block[][] getBlocks() {
 		return blocks;
+	}
+	
+	public ArrayList<MovingBlock> getMovingBlocks() {
+		return movingBlocks;
 	}
 	
 }

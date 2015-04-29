@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import med4.game_of_oose.gamestate.ApplicationState;
 import med4.game_of_oose.main.ApplicationPanel;
 import med4.game_of_oose.objects.Block;
+import med4.game_of_oose.objects.MovingBlock;
 import med4.game_of_oose.physics.Collision;
 
 public class Player {
@@ -39,7 +41,7 @@ public class Player {
 		this.height = height;
 	}
 	
-	public void tick(Block[][] b) {
+	public void tick(Block[][] b, ArrayList<MovingBlock> movingBlocks) {
 		
 		int iX = (int)x;
 		int iY = (int)y;
@@ -79,6 +81,41 @@ public class Player {
 			}
 			}
 		}
+		for(int i = 0; i < movingBlocks.size(); i++)
+		if(movingBlocks.get(i).getID() != 0){
+			//right
+			if(Collision.playerMovingBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + (int)ApplicationState.yOffset + 2), movingBlocks.get(i))
+					|| Collision.playerMovingBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + height + (int)ApplicationState.yOffset - 1), movingBlocks.get(i))){
+					right=false;
+			}
+			
+			//left
+			if(Collision.playerMovingBlock(new Point(iX + (int)ApplicationState.xOffset- 1, iY + (int)ApplicationState.yOffset + 2), movingBlocks.get(i))
+					|| Collision.playerMovingBlock(new Point(iX + (int)ApplicationState.xOffset - 1, iY + height + (int)ApplicationState.yOffset - 1), movingBlocks.get(i))){
+					left=false;
+			}
+			
+			//top
+			if(Collision.playerMovingBlock(new Point(iX + (int)ApplicationState.xOffset + 1, iY + (int)ApplicationState.yOffset), movingBlocks.get(i)) 
+					|| Collision.playerMovingBlock(new Point(iX + width + (int)ApplicationState.xOffset - 3, iY + (int)ApplicationState.yOffset), movingBlocks.get(i))){
+					jumping = false;
+					falling = true;
+			}
+			//bottom
+			if(Collision.playerMovingBlock(new Point(iX + (int)ApplicationState.xOffset + 2, iY + height + (int)ApplicationState.yOffset + 1), movingBlocks.get(i)) 
+					|| Collision.playerMovingBlock(new Point(iX + width + (int)ApplicationState.xOffset - 3, iY + height + (int)ApplicationState.yOffset + 1), movingBlocks.get(i))){
+				y = movingBlocks.get(i).getY() - height - ApplicationState.yOffset;	
+				falling = false;
+					topCollision = true;
+					
+					ApplicationState.xOffset += movingBlocks.get(i).getMove(); //so player moves with the moving block.
+			} else {
+				if(!topCollision && !jumping) {
+					falling = true;
+				}
+			}
+			}
+		
 		
 		topCollision = false;
 		
