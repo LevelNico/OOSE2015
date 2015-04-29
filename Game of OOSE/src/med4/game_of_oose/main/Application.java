@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 public class Application {
 
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("MarioClone");
+		JFrame frame = new JFrame("Yous VS. Not-Seas");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.setLayout(new BorderLayout());
