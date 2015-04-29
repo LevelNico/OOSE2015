@@ -50,26 +50,26 @@ public class Player {
 			for(int j = 0; j < b[0].length; j++){
 			if(b[i][j].getID() != 0){
 			//right
-			if(Collision.playerBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + (int)ApplicationState.yOffset + 2), b[i][j])
-					|| Collision.playerBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + height + (int)ApplicationState.yOffset - 1), b[i][j])){
+			if(Collision.playerBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + (int)ApplicationState.yOffset + 3), b[i][j])
+					|| Collision.playerBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + height + (int)ApplicationState.yOffset - 2), b[i][j])){
 					right=false;
 			}
 			
 			//left
-			if(Collision.playerBlock(new Point(iX + (int)ApplicationState.xOffset- 1, iY + (int)ApplicationState.yOffset + 2), b[i][j])
-					|| Collision.playerBlock(new Point(iX + (int)ApplicationState.xOffset - 1, iY + height + (int)ApplicationState.yOffset - 1), b[i][j])){
+			if(Collision.playerBlock(new Point(iX + (int)ApplicationState.xOffset- 2, iY + (int)ApplicationState.yOffset + 3), b[i][j])
+					|| Collision.playerBlock(new Point(iX + (int)ApplicationState.xOffset - 2, iY + height + (int)ApplicationState.yOffset - 2), b[i][j])){
 					left=false;
 			}
 			
 			//top
-			if(Collision.playerBlock(new Point(iX + (int)ApplicationState.xOffset + 1, iY + (int)ApplicationState.yOffset), b[i][j]) 
+			if(Collision.playerBlock(new Point(iX + (int)ApplicationState.xOffset + 2, iY + (int)ApplicationState.yOffset), b[i][j]) 
 					|| Collision.playerBlock(new Point(iX + width + (int)ApplicationState.xOffset - 3, iY + (int)ApplicationState.yOffset), b[i][j])){
 					jumping = false;
 					falling = true;
 			}
 			//bottom
-			if(Collision.playerBlock(new Point(iX + (int)ApplicationState.xOffset + 2, iY + height + (int)ApplicationState.yOffset + 1), b[i][j]) 
-					|| Collision.playerBlock(new Point(iX + width + (int)ApplicationState.xOffset - 3, iY + height + (int)ApplicationState.yOffset + 1), b[i][j])){
+			if(Collision.playerBlock(new Point(iX + (int)ApplicationState.xOffset + 3, iY + height + (int)ApplicationState.yOffset + 2), b[i][j]) 
+					|| Collision.playerBlock(new Point(iX + width + (int)ApplicationState.xOffset - 3, iY + height + (int)ApplicationState.yOffset + 2), b[i][j])){
 				y = b[i][j].getY() - height - ApplicationState.yOffset;	
 				falling = false;
 					topCollision = true;
@@ -81,21 +81,18 @@ public class Player {
 			}
 			}
 		}
-		
-		for(int i = 0; i < movingBlocks.size(); i++) //Moving block collision
+		for(int i = 0; i < movingBlocks.size(); i++)
 		if(movingBlocks.get(i).getID() != 0){
 			//right
 			if(Collision.playerMovingBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + (int)ApplicationState.yOffset + 2), movingBlocks.get(i))
 					|| Collision.playerMovingBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + height + (int)ApplicationState.yOffset - 1), movingBlocks.get(i))){
 					right=false;
-					ApplicationState.xOffset += movingBlocks.get(i).getMove();
 			}
 			
 			//left
 			if(Collision.playerMovingBlock(new Point(iX + (int)ApplicationState.xOffset- 1, iY + (int)ApplicationState.yOffset + 2), movingBlocks.get(i))
 					|| Collision.playerMovingBlock(new Point(iX + (int)ApplicationState.xOffset - 1, iY + height + (int)ApplicationState.yOffset - 1), movingBlocks.get(i))){
 					left=false;
-					ApplicationState.xOffset += movingBlocks.get(i).getMove();
 			}
 			
 			//top

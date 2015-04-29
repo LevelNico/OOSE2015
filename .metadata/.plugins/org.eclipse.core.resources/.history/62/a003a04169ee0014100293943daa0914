@@ -23,7 +23,10 @@ public class Player {
 	private int width, height;
 	
 	//move speed
-	private double moveSpeed = 4;
+	private double posSpeed = 0;
+	private double moveSpeed = 0.01;
+	private double maxSpeed = 0.2;
+	private double stopSpeed = 0.01;
 	
 	//Jump speed
 	private double jumpSpeed = 8;
@@ -81,21 +84,18 @@ public class Player {
 			}
 			}
 		}
-		
-		for(int i = 0; i < movingBlocks.size(); i++) //Moving block collision
+		for(int i = 0; i < movingBlocks.size(); i++)
 		if(movingBlocks.get(i).getID() != 0){
 			//right
 			if(Collision.playerMovingBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + (int)ApplicationState.yOffset + 2), movingBlocks.get(i))
 					|| Collision.playerMovingBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + height + (int)ApplicationState.yOffset - 1), movingBlocks.get(i))){
 					right=false;
-					ApplicationState.xOffset += movingBlocks.get(i).getMove();
 			}
 			
 			//left
 			if(Collision.playerMovingBlock(new Point(iX + (int)ApplicationState.xOffset- 1, iY + (int)ApplicationState.yOffset + 2), movingBlocks.get(i))
 					|| Collision.playerMovingBlock(new Point(iX + (int)ApplicationState.xOffset - 1, iY + height + (int)ApplicationState.yOffset - 1), movingBlocks.get(i))){
 					left=false;
-					ApplicationState.xOffset += movingBlocks.get(i).getMove();
 			}
 			
 			//top
@@ -123,10 +123,28 @@ public class Player {
 		topCollision = false;
 		
 		if(right){
-			ApplicationState.xOffset += moveSpeed;
+			if(posSpeed < maxSpeed){
+				posSpeed += moveSpeed;
+				}
+			if(posSpeed > maxSpeed){
+				posSpeed = maxSpeed;
+			}
+			ApplicationState.xOffset += posSpeed;
 		}
 		if(left){
-			ApplicationState.xOffset -= moveSpeed;
+			if(posSpeed < maxSpeed){
+				posSpeed += moveSpeed;
+				}
+			if(posSpeed > maxSpeed){
+				posSpeed = maxSpeed;
+			}
+			ApplicationState.xOffset -= posSpeed;
+		}
+		if(!left && !right){
+			posSpeed -= stopSpeed;
+			if(posSpeed > 0){
+				posSpeed = 0;
+			}
 		}
 		if(jumping){
 			ApplicationState.yOffset -= currentJumpSpeed;

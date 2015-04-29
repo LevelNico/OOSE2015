@@ -85,17 +85,15 @@ public class Player {
 		for(int i = 0; i < movingBlocks.size(); i++) //Moving block collision
 		if(movingBlocks.get(i).getID() != 0){
 			//right
-			if(Collision.playerMovingBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + (int)ApplicationState.yOffset + 2), movingBlocks.get(i))
-					|| Collision.playerMovingBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + height + (int)ApplicationState.yOffset - 1), movingBlocks.get(i))){
+			if(Collision.playerMovingBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + (int)ApplicationState.yOffset + 3), movingBlocks.get(i))
+					|| Collision.playerMovingBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + height + (int)ApplicationState.yOffset - 2), movingBlocks.get(i))){
 					right=false;
-					ApplicationState.xOffset += movingBlocks.get(i).getMove();
 			}
 			
 			//left
-			if(Collision.playerMovingBlock(new Point(iX + (int)ApplicationState.xOffset- 1, iY + (int)ApplicationState.yOffset + 2), movingBlocks.get(i))
+			if(Collision.playerMovingBlock(new Point(iX + (int)ApplicationState.xOffset- 2, iY + (int)ApplicationState.yOffset + 3), movingBlocks.get(i))
 					|| Collision.playerMovingBlock(new Point(iX + (int)ApplicationState.xOffset - 1, iY + height + (int)ApplicationState.yOffset - 1), movingBlocks.get(i))){
 					left=false;
-					ApplicationState.xOffset += movingBlocks.get(i).getMove();
 			}
 			
 			//top
