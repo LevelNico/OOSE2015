@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import med4.game_of_oose.gamestate.ApplicationState;
-import med4.game_of_oose.resources.Images;
 
 public class Block extends Rectangle {
 	public static final long serialVersionUID= 1L;
@@ -25,8 +24,7 @@ public class Block extends Rectangle {
 	public void draw(Graphics g){
 		g.setColor(Color.BLACK);
 		if(id != 0) {
-			g.drawImage(Images.blocks[id-1], x - (int)ApplicationState.xOffset, y - (int)ApplicationState.yOffset, width, height, null);
-			
+			g.fillRect(x - (int)ApplicationState.xOffset, y - (int)ApplicationState.yOffset, width, height);
 		}
 	}
 	

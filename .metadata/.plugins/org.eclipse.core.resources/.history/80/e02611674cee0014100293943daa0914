@@ -1,0 +1,19 @@
+package med4.game_of_oose.resources;
+
+import java.io.IOException;
+
+public class images {
+	
+	private BufferedImage[] blocks;
+	
+	public Images(){
+		blocks= new BufferedImage[1];
+		try {
+		blocks[0] = ImageIO.read(getClass().getResourceAsStream(""));
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+}
