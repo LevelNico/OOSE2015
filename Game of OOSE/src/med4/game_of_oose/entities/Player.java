@@ -7,12 +7,16 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import med4.game_of_oose.gamestate.ApplicationState;
+import med4.game_of_oose.gamestate.Level1State;
 import med4.game_of_oose.main.ApplicationPanel;
 import med4.game_of_oose.objects.Block;
 import med4.game_of_oose.objects.MovingBlock;
 import med4.game_of_oose.physics.Collision;
 
 public class Player {
+	
+	public boolean dead = false;
+	private int lives = 3;
 	
 	//movement booleans
 	private boolean right = false, left = false, jumping = false, falling = false;
@@ -41,7 +45,7 @@ public class Player {
 		this.height = height;
 	}
 	
-	public void tick(Block[][] b, ArrayList<MovingBlock> movingBlocks) {
+public void tick(Block[][] b, ArrayList<MovingBlock> movingBlocks, ArrayList<BasicEnemy> basicEnemies) {
 		
 		int iX = (int)x;
 		int iY = (int)y;
@@ -120,6 +124,46 @@ public class Player {
 			}
 			}
 		
+		for(int i = 0; i < basicEnemies.size(); i++) //basic enemy collision
+			if(basicEnemies.get(i).getID() != 0){
+				//right
+				if(Collision.playerBasicEnemy(new Point(iX + width + (int)ApplicationState.xOffset, iY + (int)ApplicationState.yOffset + 2), basicEnemies.get(i))
+						|| Collision.playerBasicEnemy(new Point(iX + width + (int)ApplicationState.xOffset, iY + height + (int)ApplicationState.yOffset - 1), basicEnemies.get(i))){
+						right=false;
+						ApplicationState.xOffset += basicEnemies.get(i).getMove();
+						die();
+				}
+				
+				//left
+				if(Collision.playerBasicEnemy(new Point(iX + (int)ApplicationState.xOffset- 1, iY + (int)ApplicationState.yOffset + 2), basicEnemies.get(i))
+						|| Collision.playerBasicEnemy(new Point(iX + (int)ApplicationState.xOffset - 1, iY + height + (int)ApplicationState.yOffset - 1), basicEnemies.get(i))){
+						left=false;
+						ApplicationState.xOffset += basicEnemies.get(i).getMove();
+						die();
+				}
+				
+				//top
+				if(Collision.playerBasicEnemy(new Point(iX + (int)ApplicationState.xOffset + 1, iY + (int)ApplicationState.yOffset), basicEnemies.get(i)) 
+						|| Collision.playerBasicEnemy(new Point(iX + width + (int)ApplicationState.xOffset - 3, iY + (int)ApplicationState.yOffset), basicEnemies.get(i))){
+						jumping = false;
+						falling = true;
+						die();
+				}
+				//bottom
+				if(Collision.playerBasicEnemy(new Point(iX + (int)ApplicationState.xOffset + 2, iY + height + (int)ApplicationState.yOffset + 1), basicEnemies.get(i)) 
+						|| Collision.playerBasicEnemy(new Point(iX + width + (int)ApplicationState.xOffset - 3, iY + height + (int)ApplicationState.yOffset + 1), basicEnemies.get(i))){
+					y = basicEnemies.get(i).getY() - height - ApplicationState.yOffset;	
+						falling = false;
+						topCollision = true;
+						//enemy die?
+						
+						ApplicationState.xOffset += basicEnemies.get(i).getMove(); //so player moves with the basic enemy.
+				} else {
+					if(!topCollision && !jumping) {
+						falling = true;
+					}
+				}
+				}
 		
 		topCollision = false;
 		
@@ -168,5 +212,24 @@ public class Player {
 	public void keyReleased(int k) {
 		if(k == KeyEvent.VK_D) right = false;
 		if(k == KeyEvent.VK_A) left = false;
+	}
+	
+	public void die(){
+		if (lives > 0){
+			lives--;
+			reset();
+		} else {
+		dead = true;
+		}
+	}
+	
+	public void reset(){
+		if(ApplicationState==Level1State){
+			ApplicationState.xOffset = Level1State.level1XOffset;
+			ApplicationState.yOffset = Level1State.level1YOffset;
+		}
+		jumping = false;
+		left = false;
+		right = false;
 	}
 }

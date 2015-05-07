@@ -12,10 +12,22 @@ public class Level1State extends ApplicationState {
 	
 	private Player player;
 	private Map map;
-	private int backPosX = 0;
-	private int backPosY = 0;
 	private int varX = 200;
-	private int varY = 100;
+	private int varY = 200;
+	private int backX1 = 0;
+	private int backY1 = 0;
+	private int backX2 = 0;
+	private int backY2 = 0;
+	private int backPosX1 = 0;
+	private int backPosY1 = 0;
+	private int backPosX2 = varX;
+	private int backPosY2 = varY;
+	private int backPosX3 = varX;
+	private int backPosY3 = varY;
+	
+	public static int level1XOffset = -200;
+	public static int level1YOffset = -400;
+	
 	
 	public Level1State(ApplicationStateManager asm) {
 		super(asm);
@@ -26,32 +38,47 @@ public class Level1State extends ApplicationState {
 		player = new Player(30, 30);
 		map = new Map("/Maps/map1.map");
 		
-		xOffset =- 200;
-		yOffset =- 400;
+		xOffset = level1XOffset;
+		yOffset = level1YOffset;
 	}
 
 	
 	public void tick() {
-		player.tick(map.getBlocks(), map.getMovingBlocks());
+		player.tick(map.getBlocks(), map.getMovingBlocks(), map.getBasicEnemies());
 		map.tick();
 	}
 
 	
 	public void draw(Graphics g){
 		g.clearRect(0, 0, ApplicationPanel.WIDTH, ApplicationPanel.HEIGHT);
-		backPosX = varX - (int)xOffset / 2;
-		backPosY = varY - (int)yOffset / 8;
-		if(backPosX + ApplicationPanel.WIDTH <= 0){
-			backPosX += ApplicationPanel.WIDTH;
-			//g.drawImage(Images.backs[0], backPosX + ApplicationPanel.WIDTH, backPosY, ApplicationPanel.WIDTH, ApplicationPanel.HEIGHT, null);
+		
+		g.drawImage(Images.backs[0], backPosX1, backPosY1, ApplicationPanel.WIDTH, ApplicationPanel.HEIGHT, null);
+		
+		backPosX2 = backX1 - (int)(xOffset / 1.5);
+		backPosY2 = backY1 - (int)yOffset / 10;
+		if((int)xOffset / 1.5 > backX1 + ApplicationPanel.WIDTH){
+			backX1 += ApplicationPanel.WIDTH;
 		}
-		if(backPosX - ApplicationPanel.WIDTH >= 0){
-			backPosX -= ApplicationPanel.WIDTH;
-			//g.drawImage(Images.backs[0], backPosX - ApplicationPanel.WIDTH , backPosY, ApplicationPanel.WIDTH, ApplicationPanel.HEIGHT, null);
+		if((int)xOffset / 1.5 < backX1 - ApplicationPanel.WIDTH){
+			backX1 -= ApplicationPanel.WIDTH;
 		}
-		g.drawImage(Images.backs[0], backPosX, backPosY, ApplicationPanel.WIDTH, ApplicationPanel.HEIGHT, null);
-		g.drawImage(Images.backs[0], backPosX + ApplicationPanel.WIDTH, backPosY, ApplicationPanel.WIDTH, ApplicationPanel.HEIGHT, null);
-		g.drawImage(Images.backs[0], backPosX - ApplicationPanel.WIDTH , backPosY, ApplicationPanel.WIDTH, ApplicationPanel.HEIGHT, null);
+		g.drawImage(Images.backs[1], backPosX2, backPosY2, ApplicationPanel.WIDTH, ApplicationPanel.HEIGHT, null);
+		g.drawImage(Images.backs[1], backPosX2 + ApplicationPanel.WIDTH, backPosY2, ApplicationPanel.WIDTH, ApplicationPanel.HEIGHT, null);
+		g.drawImage(Images.backs[1], backPosX2 - ApplicationPanel.WIDTH , backPosY2, ApplicationPanel.WIDTH, ApplicationPanel.HEIGHT, null);
+		
+		backPosX3 = backX2 - (int)(xOffset / 1.25);
+		backPosY3 = backY2 - (int)yOffset / 8;
+		if((int)xOffset / 1.25 > backX2 + ApplicationPanel.WIDTH){
+			backX2 += ApplicationPanel.WIDTH;
+		}
+		if((int)xOffset / 1.25 < backX2 - ApplicationPanel.WIDTH){
+			backX2 -= ApplicationPanel.WIDTH;
+		}
+		g.drawImage(Images.backs[2], backPosX3, backPosY3, ApplicationPanel.WIDTH, ApplicationPanel.HEIGHT, null);
+		g.drawImage(Images.backs[2], backPosX3 + ApplicationPanel.WIDTH, backPosY3, ApplicationPanel.WIDTH, ApplicationPanel.HEIGHT, null);
+		g.drawImage(Images.backs[2], backPosX3 - ApplicationPanel.WIDTH , backPosY3, ApplicationPanel.WIDTH, ApplicationPanel.HEIGHT, null);
+		
+		
 		player.draw(g);
 		map.draw(g);
 	}
@@ -65,5 +92,13 @@ public class Level1State extends ApplicationState {
 	public void keyReleased(int k) {
 		player.keyReleased(k);
 	}
+	
+	
+	public void Death(){
+		if (player.dead){
+			asm.states.push(new GameOverState(asm));
+		}
+	}
+	
 
 }

@@ -10,6 +10,7 @@ public class Images {
 	public static BufferedImage[] blocks;
 	public static BufferedImage[] backs;
 	public static int maxImgCount = 2;
+	public static int maxBackCount = 3;
 	
 	public Images(){
 		blocks = new BufferedImage[maxImgCount];
@@ -21,9 +22,11 @@ public class Images {
 		}
 		
 		
-		backs = new BufferedImage[1];
+		backs = new BufferedImage[maxBackCount];
 		try {
-			backs[0] = ImageIO.read(getClass().getResourceAsStream("/Blocks/sky.gif"));
+			backs[0] = ImageIO.read(getClass().getResourceAsStream("/Blocks/Background_Back.png"));
+			backs[1] = ImageIO.read(getClass().getResourceAsStream("/Blocks/Background_Middle.png"));
+			backs[2] = ImageIO.read(getClass().getResourceAsStream("/Blocks/Background_Front.png"));
 			} catch(IOException e) {
 				e.printStackTrace();
 			}
