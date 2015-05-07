@@ -67,7 +67,7 @@ public class Map {
 			line = br.readLine();//read length
 			int length = Integer.parseInt(line);
 			movingBlocks = new ArrayList<MovingBlock>();
-			
+		
 			for(int i = 0; i < length; i++){
 				line = br.readLine(); //read movingblock stats
 				String[] tokens = line.split("\\s+"); //splits the line into tokens

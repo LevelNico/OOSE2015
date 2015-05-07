@@ -15,7 +15,7 @@ public class MovingBlock extends Rectangle{
 	
 	public MovingBlock(int x, int y, int id, int leftBound, int rightBound){
 		setBounds(x, y, Block.blockSize, Block.blockSize);
-		this.id=id;
+		this.id = id;
 		this.rightBound = rightBound;
 		this.leftBound = leftBound;
 	}
