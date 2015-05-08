@@ -54,7 +54,7 @@ public void tick(Block[][] b, ArrayList<MovingBlock> movingBlocks, ArrayList<Bas
 		
 		for(int i = 0; i < b.length; i++){
 			for(int j = 0; j < b[0].length; j++){
-			if(b[i][j].getID() == 7){
+			if(b[i][j].getID() != 0 && Collision.playerBlock(new Point(iX + (int)ApplicationState.xOffset, iY + (int)ApplicationState.yOffset), b[i][j]) && b[i][j].getID() == 7){
 				victory();
 			}
 			else if(b[i][j].getID() != 0 && b[i][j].getID() != 7){
