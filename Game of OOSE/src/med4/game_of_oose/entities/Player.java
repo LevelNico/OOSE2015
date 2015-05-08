@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import med4.game_of_oose.gamestate.ApplicationState;
 import med4.game_of_oose.gamestate.Level1State;
+import med4.game_of_oose.gamestate.Level2State;
 import med4.game_of_oose.main.ApplicationPanel;
 import med4.game_of_oose.objects.Block;
 import med4.game_of_oose.objects.MovingBlock;
@@ -224,10 +225,16 @@ public void tick(Block[][] b, ArrayList<MovingBlock> movingBlocks, ArrayList<Bas
 	}
 	
 	public void reset(){
-		if(ApplicationState==Level1State){
-			ApplicationState.xOffset = Level1State.level1XOffset;
-			ApplicationState.yOffset = Level1State.level1YOffset;
+		
+		if(ApplicationState.level == 1){
+			ApplicationState.xOffset = Level1State.level1XSpawn;
+			ApplicationState.yOffset = Level1State.level1YSpawn;
 		}
+		if(ApplicationState.level == 2){
+			ApplicationState.xOffset = Level2State.level2XSpawn;
+			ApplicationState.yOffset = Level2State.level2YSpawn;
+		}
+		
 		jumping = false;
 		left = false;
 		right = false;

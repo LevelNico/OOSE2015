@@ -7,6 +7,7 @@ public abstract class ApplicationState {
 	protected ApplicationStateManager asm;
 	public static double xOffset;
 	public static double yOffset;
+	public static int level;
 	
 	public ApplicationState(ApplicationStateManager asm) {
 		this.asm = asm;

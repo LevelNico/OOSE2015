@@ -8,8 +8,9 @@ import med4.game_of_oose.mapping.Map;
 import med4.game_of_oose.resources.Images;
 //import med4.game_of_oose.objects.Block;
 
-public class Level1State extends ApplicationState {
-	
+public class Level2State extends ApplicationState {
+
+
 	private Player player;
 	private Map map;
 	private int varX = 200;
@@ -25,11 +26,11 @@ public class Level1State extends ApplicationState {
 	private int backPosX3 = varX;
 	private int backPosY3 = varY;
 	
-	public static int level1XSpawn = -200;
-	public static int level1YSpawn = -400;
+	public static int level2XSpawn = -200;
+	public static int level2YSpawn = -800;
 	
 	
-	public Level1State(ApplicationStateManager asm) {
+	public Level2State(ApplicationStateManager asm) {
 		super(asm);
 	}
 
@@ -38,18 +39,15 @@ public class Level1State extends ApplicationState {
 		player = new Player(30, 30);
 		map = new Map("/Maps/map1.map");
 		
-		xOffset = level1XSpawn;
-		yOffset = level1YSpawn;
-		level = 1;
+		xOffset = level2XSpawn;
+		yOffset = level2YSpawn;
+		level = 2;
 	}
 
 	
 	public void tick() {
 		player.tick(map.getBlocks(), map.getMovingBlocks(), map.getBasicEnemies());
 		map.tick();
-		if (player.dead){
-			asm.states.push(new GameOverState(asm));
-		}
 	}
 
 	
@@ -96,4 +94,13 @@ public class Level1State extends ApplicationState {
 	public void keyReleased(int k) {
 		player.keyReleased(k);
 	}
+	
+	
+	public void Death(){
+		if (player.dead){
+			asm.states.push(new GameOverState(asm));
+		}
+	}
+	
+
 }

@@ -27,5 +27,5 @@ public class ApplicationStateManager {
 	public void keyReleased(int k){
 		states.peek().keyReleased(k);
 		
-	}
+	}	
 }
