@@ -53,9 +53,15 @@ public void tick(Block[][] b, ArrayList<MovingBlock> movingBlocks, ArrayList<Bas
 		int iY = (int)y;
 		
 		for(int i = 0; i < b.length; i++){
+			//winning
 			for(int j = 0; j < b[0].length; j++){
 			if(b[i][j].getID() != 0 && Collision.playerBlock(new Point(iX + (int)ApplicationState.xOffset, iY + (int)ApplicationState.yOffset), b[i][j]) && b[i][j].getID() == 7){
 				victory();
+			}
+			//coins
+			if(b[i][j].getID() != 0 && Collision.playerBlock(new Point(iX + (int)ApplicationState.xOffset, iY + (int)ApplicationState.yOffset), b[i][j]) && b[i][j].getID() == 8){
+				b[i][j].setID(0);
+				score =+ 10;
 			}
 			else if(b[i][j].getID() != 0 && b[i][j].getID() != 7){
 			//right
@@ -160,7 +166,8 @@ public void tick(Block[][] b, ArrayList<MovingBlock> movingBlocks, ArrayList<Bas
 					y = basicEnemies.get(i).getY() - height - ApplicationState.yOffset;	
 						falling = false;
 						topCollision = true;
-						//enemy die?
+						die();
+						//In future implementation, enemy could die instead if ID is a certain number. Think like Coins.
 						
 						ApplicationState.xOffset += basicEnemies.get(i).getMove(); //so player moves with the basic enemy.
 				} else {
