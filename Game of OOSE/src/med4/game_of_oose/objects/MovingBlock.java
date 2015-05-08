@@ -36,7 +36,7 @@ public class MovingBlock extends Rectangle{
 	
 	public void draw(Graphics g) {
 		if(id != 0) {
-			g.drawImage(Images.blocks[id - 1], x - (int)ApplicationState.xOffset, y - (int)ApplicationState.yOffset, width, height, null);
+			g.drawImage(Images.blocks[id + 8], x - (int)ApplicationState.xOffset, y - (int)ApplicationState.yOffset, width, height, null);
 		}
 	}
 	
