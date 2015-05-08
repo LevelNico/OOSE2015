@@ -14,6 +14,7 @@ public abstract class ApplicationState {
 		
 		this.xOffset = 0; //These are to move the map rather than moving the player.
 		this.yOffset = 0;
+		this.level = 0;
 		init();
 	}
 	

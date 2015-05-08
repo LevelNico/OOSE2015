@@ -51,8 +51,8 @@ public class Level2State extends ApplicationState {
 		if (player.dead){
 			asm.states.push(new GameOverState(asm));
 		}
-		if (level == 3){
-			asm.states.push(new Level3State(asm));
+		if (player.goal){
+			asm.states.push(new WinState(asm));
 		}
 	}
 

@@ -236,10 +236,10 @@ public void tick(Block[][] b, ArrayList<MovingBlock> movingBlocks, ArrayList<Bas
 	}
 	
 	public void victory(){
-		if (ApplicationState.level == 4){
+		if (ApplicationState.level == 3){
 			goal = true;
 		}
-		else if (ApplicationState.level != 4){
+		else if (ApplicationState.level != 3){
 			ApplicationState.level++;
 		}
 		
