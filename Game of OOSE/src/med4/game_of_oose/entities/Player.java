@@ -16,7 +16,8 @@ import med4.game_of_oose.physics.Collision;
 
 public class Player {
 	
-	public boolean dead = false;
+	public static int score = 0;
+	public boolean dead, goal = false;
 	private int lives = 3;
 	
 	//movement booleans
@@ -53,7 +54,10 @@ public void tick(Block[][] b, ArrayList<MovingBlock> movingBlocks, ArrayList<Bas
 		
 		for(int i = 0; i < b.length; i++){
 			for(int j = 0; j < b[0].length; j++){
-			if(b[i][j].getID() != 0){
+			if(b[i][j].getID() == 7){
+				victory();
+			}
+			else if(b[i][j].getID() != 0 && b[i][j].getID() != 7){
 			//right
 			if(Collision.playerBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + (int)ApplicationState.yOffset + 2), b[i][j])
 					|| Collision.playerBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + height + (int)ApplicationState.yOffset - 2), b[i][j])){
@@ -89,7 +93,7 @@ public void tick(Block[][] b, ArrayList<MovingBlock> movingBlocks, ArrayList<Bas
 		}
 		
 		for(int i = 0; i < movingBlocks.size(); i++) //Moving block collision
-		if(movingBlocks.get(i).getID() != 0){
+		if(movingBlocks.get(i).getID() != 0 && movingBlocks.get(i).getID() != 7){
 			//right
 			if(Collision.playerMovingBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + (int)ApplicationState.yOffset + 2), movingBlocks.get(i))
 					|| Collision.playerMovingBlock(new Point(iX + width + (int)ApplicationState.xOffset, iY + height + (int)ApplicationState.yOffset - 1), movingBlocks.get(i))){
@@ -222,6 +226,16 @@ public void tick(Block[][] b, ArrayList<MovingBlock> movingBlocks, ArrayList<Bas
 		} else {
 		dead = true;
 		}
+	}
+	
+	public void victory(){
+		if (ApplicationState.level == 4){
+			goal = true;
+		}
+		else if (ApplicationState.level != 4){
+			ApplicationState.level++;
+		}
+		
 	}
 	
 	public void reset(){

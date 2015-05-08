@@ -8,7 +8,7 @@ import med4.game_of_oose.mapping.Map;
 import med4.game_of_oose.resources.Images;
 //import med4.game_of_oose.objects.Block;
 
-public class Level2State extends ApplicationState {
+public class Level3State extends ApplicationState {
 
 
 	private Player player;
@@ -26,11 +26,11 @@ public class Level2State extends ApplicationState {
 	private int backPosX3 = varX;
 	private int backPosY3 = varY;
 	
-	public static int level2XSpawn = -200;
-	public static int level2YSpawn = -800;
+	public static int level3XSpawn = -200;
+	public static int level3YSpawn = -400;
 	
 	
-	public Level2State(ApplicationStateManager asm) {
+	public Level3State(ApplicationStateManager asm) {
 		super(asm);
 	}
 
@@ -39,8 +39,8 @@ public class Level2State extends ApplicationState {
 		player = new Player(30, 30);
 		map = new Map("/Maps/map1.map");
 		
-		xOffset = level2XSpawn;
-		yOffset = level2YSpawn;
+		xOffset = level3XSpawn;
+		yOffset = level3YSpawn;
 		level = 2;
 	}
 
@@ -51,8 +51,8 @@ public class Level2State extends ApplicationState {
 		if (player.dead){
 			asm.states.push(new GameOverState(asm));
 		}
-		if (level == 3){
-			asm.states.push(new Level3State(asm));
+		if (player.goal){
+			asm.states.push(new WinState(asm));
 		}
 	}
 
