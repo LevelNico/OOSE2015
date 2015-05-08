@@ -37,7 +37,7 @@ public class Level2State extends ApplicationState {
 	
 	public void init() {
 		player = new Player(30, 30);
-		map = new Map("/Maps/map2.map");
+		map = new Map("/Maps/map1.map");
 		
 		xOffset = level2XSpawn;
 		yOffset = level2YSpawn;
